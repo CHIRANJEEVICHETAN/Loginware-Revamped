@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Cpu, Database, Gauge, Activity } from "lucide-react"
+import { SplineSceneBasic } from "@/components/ui/code.demo"
 
 const pageLoadVariants = {
   hidden: { opacity: 0 },
@@ -126,6 +127,14 @@ export default function Hero() {
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
+        </motion.div>
+
+        {/* 3D Scene Section */}
+        <motion.div
+          variants={itemVariants}
+          className="mt-16"
+        >
+          <SplineSceneBasic />
         </motion.div>
       </motion.div>
     </section>

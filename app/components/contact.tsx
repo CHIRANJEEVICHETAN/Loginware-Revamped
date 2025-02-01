@@ -46,7 +46,7 @@ export default function Contact() {
               <Phone className="w-6 h-6 text-primary mt-1" />
               <div>
                 <h3 className="font-semibold mb-1">Call Us</h3>
-                <p className="text-gray-400">+1 (555) 123-4567</p>
+                <p className="text-gray-400">+91 9916609819</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
@@ -54,9 +54,9 @@ export default function Contact() {
               <div>
                 <h3 className="font-semibold mb-1">Visit Us</h3>
                 <p className="text-gray-400">
-                  123 Industrial Avenue
+                  119, 2 floor 1 Cross, Chandra Layout Main Rd
                   <br />
-                  Tech City, TC 12345
+                  Gangondanahalli, Bengaluru, Karnataka 560040
                 </p>
               </div>
             </div>

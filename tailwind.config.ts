@@ -55,7 +55,25 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+  		maxWidth: {
+  			container: "1280px",
+  		},
+  		animation: {
+  			marquee: 'marquee 30s linear infinite',
+  			'marquee-pause': 'marquee 30s linear infinite paused',
+  		},
+  		keyframes: {
+  			marquee: {
+  				'0%': { transform: 'translateX(0)' },
+  				'100%': { transform: 'translateX(calc(-33.333% - 1.5rem))' }
+  			}
+  		},
+  		backgroundImage: {
+  			'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+  			'gradient-conic':
+  				'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

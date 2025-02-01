@@ -13,6 +13,7 @@ import SceneWrapper from "./components/scene-wrapper"
 import { ScrollProgress } from "@/app/components/scroll-progress"
 import { AnimatedSection } from "@/app/components/animated-section"
 import Features from "./components/features"
+import { TestimonialsSectionDemo } from "@/components/ui/code.demo"
 
 export default function Home() {
   return (
@@ -36,6 +37,7 @@ export default function Home() {
         <Ecosystem />
         <Expertise />
         <CaseStudies />
+        <TestimonialsSectionDemo />
         <Contact />
         <Footer />
       </div>
