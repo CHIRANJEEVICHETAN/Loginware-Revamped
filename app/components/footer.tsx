@@ -5,26 +5,26 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black border-t border-gray-800">
+    <footer className="bg-gradient-to-b from-gray-50 to-white border-t border-gray-200">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">
-            <h3 className="text-2xl font-bold text-white mb-4">Loginware</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">Loginware</h3>
             <p className="text-gray-400 leading-relaxed mb-4 text-sm sm:text-base">
               An industry-leading technology company at the forefront of delivering sophisticated and digitally
               transformative solutions for the manufacturing sector.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
                 <WhatsApp className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
                 <Facebook className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
                 <Instagram className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors">
+              <Link href="#" className="text-gray-600 hover:text-blue-600 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </Link>
             </div>

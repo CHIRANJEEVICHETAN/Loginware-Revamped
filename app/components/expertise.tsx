@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { Cpu, Network, BarChart2, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { AnimatedSection } from "@/app/components/animated-section"
 
 const expertiseAreas = [
   {
@@ -11,56 +12,34 @@ const expertiseAreas = [
     title: "Smart Manufacturing",
     description:
       "Revolutionize your manufacturing processes with our advanced IIoT solutions that seamlessly integrate with existing systems.",
+    gradient: "from-blue-500 to-blue-600",
+    bgGradient: "from-blue-50 via-transparent to-transparent",
   },
   {
     icon: Network,
     title: "Digital Transformation",
     description:
       "Transform your operations with our comprehensive digital solutions that drive efficiency and innovation.",
+    gradient: "from-indigo-500 to-indigo-600",
+    bgGradient: "from-indigo-50 via-transparent to-transparent",
   },
   {
     icon: BarChart2,
     title: "Data Analytics",
     description:
       "Harness the power of data with our advanced analytics tools to make informed decisions and optimize operations.",
+    gradient: "from-purple-500 to-purple-600",
+    bgGradient: "from-purple-50 via-transparent to-transparent",
   },
   {
     icon: Zap,
     title: "Process Automation",
     description:
       "Streamline your workflows with intelligent automation solutions that boost productivity and reduce errors.",
+    gradient: "from-cyan-500 to-cyan-600",
+    bgGradient: "from-cyan-50 via-transparent to-transparent",
   },
 ]
-
-const cardVariants = {
-  hidden: { 
-    opacity: 0,
-    y: 50,
-    scale: 0.95
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
-  }
-}
-
-const iconVariants = {
-  hidden: { scale: 0, rotate: -45 },
-  visible: { 
-    scale: 1, 
-    rotate: 0,
-    transition: { 
-      type: "spring",
-      stiffness: 200,
-      damping: 15
-    }
-  }
-}
 
 export default function Expertise() {
   const containerRef = useRef(null)
@@ -72,14 +51,39 @@ export default function Expertise() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
 
   return (
-    <section ref={containerRef} className="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
-      <motion.div 
-        className="absolute inset-0 bg-grid-white/5"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      />
-      <div className="container mx-auto px-4 relative">
+    <AnimatedSection className="relative py-24 overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 z-0">
+        {/* Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#f0f7ff_1px,transparent_1px),linear-gradient(to_bottom,#f0f7ff_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-25" />
+        
+        {/* Animated Circles */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full mix-blend-multiply filter blur-xl opacity-30"
+            style={{
+              background: `linear-gradient(to right, #60a5fa, #3b82f6)`,
+              width: Math.random() * 400 + 200,
+              height: Math.random() * 400 + 200,
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              x: [0, 30, 0],
+              y: [0, 30, 0],
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10" ref={containerRef}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -90,7 +94,7 @@ export default function Expertise() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-500"
+            className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400"
           >
             Our Expertise
           </motion.h2>
@@ -98,7 +102,7 @@ export default function Expertise() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-gray-600 text-lg max-w-3xl mx-auto"
           >
             Data Mastery, Industry Proficiency: Experience the Difference with Loginware's Expertise
           </motion.p>
@@ -108,20 +112,41 @@ export default function Expertise() {
           {expertiseAreas.map((area, index) => (
             <motion.div
               key={area.title}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="group relative p-8 rounded-xl bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-700 hover:border-primary/50 transition-all duration-300"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              whileHover={{ 
+                scale: 1.02,
+                transition: { duration: 0.2 }
+              }}
+              className={`relative p-6 rounded-xl backdrop-blur-sm bg-white/80 border border-transparent
+                hover:border-${area.gradient.split('-')[1]} transition-all duration-300 group shadow-lg hover:shadow-xl`}
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-              <motion.div variants={iconVariants}>
-                <area.icon className="w-12 h-12 text-primary mb-6" />
-              </motion.div>
-              <h3 className="text-xl font-semibold mb-4 text-white">{area.title}</h3>
-              <p className="text-gray-300">{area.description}</p>
+              <div className={`absolute inset-0 bg-gradient-to-br ${area.bgGradient} opacity-50 rounded-xl`} />
+              <div className="relative z-10">
+                <motion.div
+                  initial={{ scale: 0, rotate: -45 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 20,
+                    delay: index * 0.1 
+                  }}
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${area.gradient} p-3 mb-6
+                    shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}
+                >
+                  <area.icon className="w-full h-full text-white" />
+                </motion.div>
+                <h3 className={`text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${area.gradient}`}>
+                  {area.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {area.description}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -132,12 +157,15 @@ export default function Expertise() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mt-12 text-center"
         >
-          <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-blue-600 to-blue-500 hover:opacity-90 text-white px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+          >
             Learn More About Our Expertise
           </Button>
         </motion.div>
       </div>
-    </section>
+    </AnimatedSection>
   )
 }
 

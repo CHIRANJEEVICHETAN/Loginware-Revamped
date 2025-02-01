@@ -108,72 +108,185 @@ function Model({ url, position, scale, rotation }: ModelProps) {
 function Scene() {
   const { scrollYProgress } = useScroll()
   const groupRef = useRef<THREE.Group>(null)
-  const [radius] = useState(6) // Radius of the circular path
-  const [rotationSpeed] = useState(0.4) // Speed of rotation
+  const [radius] = useState(6)
+  const [rotationSpeed] = useState(0.4)
+
+  // Enhanced grid pattern
+  const gridMaterial = useMemo(() => {
+    const canvas = document.createElement('canvas')
+    canvas.width = 256 // Increased resolution
+    canvas.height = 256
+    const ctx = canvas.getContext('2d')
+    if (ctx) {
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, 256, 256)
+      
+      // Create gradient for lines
+      const gradient = ctx.createLinearGradient(0, 0, 256, 256)
+      gradient.addColorStop(0, '#60a5fa')
+      gradient.addColorStop(1, '#3b82f6')
+      
+      ctx.strokeStyle = gradient
+      ctx.lineWidth = 0.5
+      ctx.globalAlpha = 0.1
+      
+      // Draw more detailed grid
+      for (let x = 16; x < 256; x += 16) {
+        ctx.beginPath()
+        ctx.moveTo(x, 0)
+        ctx.lineTo(x, 256)
+        ctx.stroke()
+      }
+      
+      for (let y = 16; y < 256; y += 16) {
+        ctx.beginPath()
+        ctx.moveTo(0, y)
+        ctx.lineTo(256, y)
+        ctx.stroke()
+      }
+    }
+    
+    const texture = new THREE.CanvasTexture(canvas)
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
+    texture.repeat.set(100, 100)
+    
+    return new THREE.MeshBasicMaterial({
+      map: texture,
+      transparent: true,
+      opacity: 0.15,
+      color: '#60a5fa',
+      blending: THREE.AdditiveBlending
+    })
+  }, [])
 
   useFrame((state) => {
     if (groupRef.current) {
-      // Update vertical position based on scroll
       const scrollOffset = scrollYProgress.get() * 5
-      
-      // Calculate circular motion
       const time = state.clock.getElapsedTime()
       const angle1 = time * rotationSpeed
-      const angle2 = time * rotationSpeed + Math.PI // Opposite side of the circle
-      
-      // Update models' positions
+      const angle2 = time * rotationSpeed + Math.PI
+
+      // Enhanced floating motion
+      const floatY = Math.sin(time * 0.5) * 0.8
+      const floatX = Math.cos(time * 0.3) * 0.2
+      groupRef.current.position.y = scrollOffset + floatY
+      groupRef.current.position.x = floatX
+      groupRef.current.rotation.y = Math.sin(time * 0.2) * 0.15
+
+      // Update model positions with smoother motion
       if (groupRef.current.children[0]) {
-        groupRef.current.children[0].position.x = Math.cos(angle1) * radius
-        groupRef.current.children[0].position.z = Math.sin(angle1) * radius
-        groupRef.current.children[0].rotation.y = angle1 + Math.PI / 2
+        const child1 = groupRef.current.children[0]
+        child1.position.x = Math.cos(angle1) * radius
+        child1.position.z = Math.sin(angle1) * radius
+        child1.position.y = Math.sin(time * 0.7) * 0.3
+        child1.rotation.y = angle1 + Math.PI / 2
       }
       
       if (groupRef.current.children[1]) {
-        groupRef.current.children[1].position.x = Math.cos(angle2) * radius
-        groupRef.current.children[1].position.z = Math.sin(angle2) * radius
-        groupRef.current.children[1].rotation.y = angle2 + Math.PI / 2
+        const child2 = groupRef.current.children[1]
+        child2.position.x = Math.cos(angle2) * radius
+        child2.position.z = Math.sin(angle2) * radius
+        child2.position.y = Math.sin(time * 0.7 + Math.PI) * 0.3
+        child2.rotation.y = angle2 + Math.PI / 2
       }
-
-      // Update group's vertical position
-      groupRef.current.position.y = scrollOffset
     }
   })
 
   return (
-    <group ref={groupRef}>
-      <Model 
-        url="/Models/Eagle-model.glb" 
-        position={[radius, 0, 0]} 
-        scale={[3, 3, 3]} // Increased size
-        rotation={[0, Math.PI / 2, 0]} 
-      />
-      <Model 
-        url="/Models/Sparrow-model.glb" 
-        position={[-radius, 0, 0]} 
-        scale={[3, 3, 3]} // Increased size
-        rotation={[0, -Math.PI / 2, 0]} 
-      />
-    </group>
+    <>
+      {/* Enhanced background elements */}
+      <mesh position={[0, 0, -15]} scale={[150, 150, 1]}>
+        <planeGeometry />
+        <primitive object={gridMaterial} attach="material" />
+      </mesh>
+
+      {/* Add atmospheric particles */}
+      {Array.from({ length: 50 }).map((_, i) => (
+        <mesh
+          key={i}
+          position={[
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 50,
+            (Math.random() - 0.5) * 20
+          ]}
+        >
+          <sphereGeometry args={[0.05, 8, 8]} />
+          <meshBasicMaterial
+            color="#60a5fa"
+            transparent
+            opacity={0.3}
+            blending={THREE.AdditiveBlending}
+          />
+        </mesh>
+      ))}
+
+      <group ref={groupRef}>
+        <Model 
+          url="/Models/Eagle-model.glb" 
+          position={[radius, 0, 0]} 
+          scale={[3, 3, 3]}
+          rotation={[0, Math.PI / 2, 0]} 
+        />
+        <Model 
+          url="/Models/Sparrow-model.glb" 
+          position={[-radius, 0, 0]} 
+          scale={[3, 3, 3]}
+          rotation={[0, -Math.PI / 2, 0]} 
+        />
+      </group>
+    </>
   )
 }
 
 export default function SceneWrapper() {
   return (
-    <Canvas className="fixed inset-0">
-      <PerspectiveCamera makeDefault position={[0, 0, 15]} fov={50} /> {/* Moved camera back */}
-      <Suspense fallback={null}>
-        <Environment preset="warehouse" />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={0.5} />
-        <Scene />
-        <OrbitControls
-          enableZoom={false}
-          minPolarAngle={Math.PI / 2.5}
-          maxPolarAngle={Math.PI / 2.5}
-          enablePan={false}
-        />
-      </Suspense>
-    </Canvas>
+    <div className="relative w-full h-full">
+      {/* Enhanced gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-900/5 via-blue-900/10 to-blue-900/15 pointer-events-none z-10" />
+      
+      <Canvas className="fixed inset-0 bg-gradient-to-b from-blue-50/20 to-white/20">
+        <PerspectiveCamera makeDefault position={[0, 0, 15]} fov={50} />
+        <Suspense fallback={null}>
+          <fog attach="fog" args={['#f8fafc', 0, 100]} />
+          <Environment preset="warehouse" />
+          
+          {/* Enhanced lighting setup */}
+          <directionalLight 
+            position={[10, 10, 5]} 
+            intensity={0.7}
+            color="#3b82f6"
+          />
+          <directionalLight 
+            position={[-10, -10, -5]} 
+            intensity={0.5}
+            color="#60a5fa"
+          />
+          <ambientLight intensity={0.6} color="#bfdbfe" />
+          <pointLight position={[10, 10, 10]} intensity={0.6} color="#93c5fd" />
+          
+          {/* Enhanced volumetric effect */}
+          <mesh position={[0, 0, -5]} scale={[80, 80, 1]}>
+            <planeGeometry />
+            <meshBasicMaterial 
+              color="#bfdbfe"
+              transparent
+              opacity={0.2}
+              blending={THREE.AdditiveBlending}
+            />
+          </mesh>
+
+          <Scene />
+          <OrbitControls
+            enableZoom={false}
+            minPolarAngle={Math.PI / 2.5}
+            maxPolarAngle={Math.PI / 2.5}
+            enablePan={false}
+            autoRotate
+            autoRotateSpeed={0.3}
+          />
+        </Suspense>
+      </Canvas>
+    </div>
   )
 }
 

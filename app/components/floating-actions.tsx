@@ -29,7 +29,7 @@ export default function FloatingActions() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0 }}
             onClick={scrollToTop}
-            className="p-4 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-colors"
+            className="p-4 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-colors"
           >
             <ArrowUp className="w-6 h-6" />
           </motion.button>
