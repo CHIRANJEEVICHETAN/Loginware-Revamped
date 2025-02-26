@@ -66,7 +66,7 @@ export default function Ecosystem() {
   }
 
   return (
-    <section className="py-24 bg-black">
+    <section className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -78,7 +78,7 @@ export default function Ecosystem() {
           <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" variants={itemVariants}>
             Why Loginware's Industry 4.0 Ecosystem?
           </motion.h2>
-          <motion.p className="text-gray-400 max-w-3xl mx-auto" variants={itemVariants}>
+          <motion.p className="text-muted-foreground max-w-3xl mx-auto" variants={itemVariants}>
             Empower your business with industry-leading Loginware's Industry 4.0 ecosystem, enabling cost-effective
             production of top-quality products at unmatched speed.
           </motion.p>
@@ -94,7 +94,7 @@ export default function Ecosystem() {
               key={benefit.title}
               variants={itemVariants}
               whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-              className="p-6 rounded-lg bg-gray-900/50 backdrop-blur-sm border border-gray-800 hover:border-primary/50 transition-all duration-300"
+              className="p-6 rounded-lg bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300"
             >
               <motion.div
                 initial={{ scale: 0, rotate: -45 }}
@@ -111,7 +111,7 @@ export default function Ecosystem() {
               <motion.h3 className="text-xl font-semibold mb-2" variants={itemVariants}>
                 {benefit.title}
               </motion.h3>
-              <motion.p className="text-gray-400" variants={itemVariants}>
+              <motion.p className="text-muted-foreground" variants={itemVariants}>
                 {benefit.description}
               </motion.p>
             </motion.div>

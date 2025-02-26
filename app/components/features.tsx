@@ -74,7 +74,7 @@ export default function Features() {
   })
 
   return (
-    <section id="features" className="py-24 bg-gradient-to-b from-black/80 to-gray-900">
+    <section id="features" className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
@@ -92,7 +92,7 @@ export default function Features() {
             Industry-Leading Features
           </motion.h2>
           <motion.p 
-            className="text-gray-400 max-w-2xl mx-auto"
+            className="text-muted-foreground max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -110,7 +110,7 @@ export default function Features() {
               viewport={{ once: false }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="p-6 rounded-lg bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-primary/50 transition-colors"
+              className="p-6 rounded-lg bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-colors"
             >
               <motion.div
                 variants={iconVariants}
@@ -119,7 +119,7 @@ export default function Features() {
                 <feature.icon className="w-full h-full" />
               </motion.div>
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-              <p className="text-gray-400">{feature.description}</p>
+              <p className="text-muted-foreground">{feature.description}</p>
             </motion.div>
           ))}
         </div>

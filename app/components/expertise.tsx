@@ -72,9 +72,9 @@ export default function Expertise() {
   const y = useTransform(scrollYProgress, [0, 1], [100, -100])
 
   return (
-    <section ref={containerRef} className="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+    <section ref={containerRef} className="py-24 bg-background relative overflow-hidden">
       <motion.div 
-        className="absolute inset-0 bg-grid-white/5"
+        className="absolute inset-0 bg-grid-white/5 dark:bg-grid-white/5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -98,7 +98,7 @@ export default function Expertise() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-xl text-muted-foreground max-w-3xl mx-auto"
           >
             Data Mastery, Industry Proficiency: Experience the Difference with Loginware's Expertise
           </motion.p>
@@ -114,14 +114,14 @@ export default function Expertise() {
               viewport={{ once: false }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
-              className="group relative p-8 rounded-xl bg-gradient-to-b from-gray-800/50 to-gray-900/50 border border-gray-700 hover:border-primary/50 transition-all duration-300"
+              className="group relative p-8 rounded-xl bg-card/50 backdrop-blur-sm border border-border hover:border-primary/50 transition-all duration-300"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
               <motion.div variants={iconVariants}>
                 <area.icon className="w-12 h-12 text-primary mb-6" />
               </motion.div>
-              <h3 className="text-xl font-semibold mb-4 text-white">{area.title}</h3>
-              <p className="text-gray-300">{area.description}</p>
+              <h3 className="text-xl font-semibold mb-4">{area.title}</h3>
+              <p className="text-muted-foreground">{area.description}</p>
             </motion.div>
           ))}
         </div>

@@ -47,13 +47,13 @@ export default function Hero() {
         style={{ y: y1, opacity }}
         className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent"
       />
-      
+
       {/* Floating Icons */}
       {floatingIcons.map(({ Icon, x, y, delay }, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, x: 0, y: 0 }}
-          animate={{ 
+          animate={{
             opacity: [0, 1, 0.8],
             x: [0, x * 10, x * 8],
             y: [0, y * 10, y * 8],
@@ -79,7 +79,7 @@ export default function Hero() {
         style={{ y: y2 }}
       >
         <motion.div variants={itemVariants} className="mb-8">
-          <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium">
+          <span className="px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-sm font-medium">
             Industry 4.0 Solutions
           </span>
         </motion.div>
@@ -91,11 +91,17 @@ export default function Hero() {
           <br />
           with Smart Solutions
         </motion.h1>
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Experience the power of EAGLE, SPARROW, and our suite of industrial IoT solutions designed for the future of
-          manufacturing.
+        <motion.p
+          variants={itemVariants}
+          className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto"
+        >
+          Experience the power of EAGLE, SPARROW, and our suite of industrial
+          IoT solutions designed for the future of manufacturing.
         </motion.p>
-        <motion.div variants={itemVariants} className="flex flex-col md:flex-row gap-4 justify-center">
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col md:flex-row gap-4 justify-center"
+        >
           <Button
             size="lg"
             className="bg-gradient-to-r from-violet-600 via-blue-500 to-cyan-400 text-white hover:opacity-90 transition-opacity text-lg group"
@@ -113,7 +119,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Stats Section */}
-        <motion.div 
+        <motion.div
           variants={itemVariants}
           className="grid md:grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto"
         >
@@ -122,22 +128,27 @@ export default function Hero() {
             { label: "Data Points", value: "1M+" },
             { label: "Efficiency Gain", value: "40%" },
           ].map((stat, index) => (
-            <div key={index} className="p-4 rounded-lg bg-white/5 backdrop-blur-sm">
-              <div className="text-3xl font-bold text-primary mb-1">{stat.value}</div>
+            <div
+              key={index}
+              className="p-4 rounded-lg bg-card/50 dark:bg-white/5 backdrop-blur-sm border border-border/50"
+            >
+              <div className="text-3xl font-bold text-primary mb-1">
+                {stat.value}
+              </div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </motion.div>
 
         {/* 3D Scene Section */}
-        <motion.div
+        {/* <motion.div
           variants={itemVariants}
           className="mt-16"
         >
           <SplineSceneBasic />
-        </motion.div>
+        </motion.div> */}
       </motion.div>
     </section>
-  )
+  );
 }
 

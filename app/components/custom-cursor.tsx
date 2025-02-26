@@ -6,8 +6,24 @@ import { motion } from "framer-motion"
 export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHovering, setIsHovering] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
 
   useEffect(() => {
+    const checkDevice = () => {
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      const isTablet = /Tablet|iPad/i.test(navigator.userAgent) || (window.innerWidth >= 768 && window.innerWidth <= 1024)
+      setIsDesktop(!isMobile && !isTablet)
+    }
+
+    checkDevice()
+    window.addEventListener('resize', checkDevice)
+
+    return () => window.removeEventListener('resize', checkDevice)
+  }, [])
+
+  useEffect(() => {
+    if (!isDesktop) return
+
     const updateMousePosition = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
@@ -31,7 +47,9 @@ export default function CustomCursor() {
       document.removeEventListener("mouseover", handleMouseOver)
       document.removeEventListener("mouseout", handleMouseOut)
     }
-  }, [])
+  }, [isDesktop])
+
+  if (!isDesktop) return null
 
   return (
     <motion.div

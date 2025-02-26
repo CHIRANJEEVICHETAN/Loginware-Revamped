@@ -17,7 +17,7 @@ import { TestimonialsSectionDemo } from "@/components/ui/code.demo"
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-black text-white">
+    <main className="relative min-h-screen bg-background text-foreground">
       <CustomCursor />
       <Navigation />
       <div className="fixed inset-0 z-0">

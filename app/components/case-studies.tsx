@@ -61,7 +61,7 @@ export default function CaseStudies() {
   })
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-900 to-black relative overflow-hidden">
+    <section className="py-24 bg-background relative overflow-hidden">
       <motion.div 
         className="absolute inset-0 bg-grid-white/5"
         initial={{ opacity: 0 }}
@@ -85,7 +85,7 @@ export default function CaseStudies() {
             Case Studies
           </motion.h2>
           <motion.p 
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-xl text-muted-foreground max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -104,7 +104,7 @@ export default function CaseStudies() {
               transition={{ delay: index * 0.2 }}
               whileHover={{ y: -10, transition: { duration: 0.2 } }}
             >
-              <Card className="group relative overflow-hidden border-gray-700 hover:border-primary/50 transition-all duration-300 h-full flex flex-col bg-gray-800/50 backdrop-blur-sm">
+              <Card className="group relative overflow-hidden border-border hover:border-primary/50 transition-all duration-300 h-full flex flex-col bg-card/50 backdrop-blur-sm">
                 <div className="relative h-48 overflow-hidden">
                   <motion.div
                     variants={imageVariants}
@@ -119,7 +119,7 @@ export default function CaseStudies() {
                       className="object-cover transition-transform duration-500 group-hover:scale-110" 
                     />
                   </motion.div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
                   <motion.div 
                     className="absolute bottom-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold"
                     whileHover={{ scale: 1.05 }}
@@ -129,12 +129,12 @@ export default function CaseStudies() {
                   </motion.div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl text-white group-hover:text-primary transition-colors">
+                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
                     {study.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow">
-                  <p className="text-gray-300 mb-4">{study.description}</p>
+                  <p className="text-muted-foreground mb-4">{study.description}</p>
                   <motion.div
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.95 }}

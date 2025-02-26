@@ -84,7 +84,7 @@ export default function Products() {
   }
 
   return (
-    <AnimatedSection className="py-24 bg-gradient-to-b from-background to-background/50">
+    <AnimatedSection className="py-24 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
