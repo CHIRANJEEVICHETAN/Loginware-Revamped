@@ -9,13 +9,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ThemeToggle } from "./theme-toggle"
 
 const products = [
-  { name: "Eagle", href: "#" },
-  { name: "Eagle Pro", href: "#" },
+  { name: "Eagle", href: "./../products/eagle" },
+  { name: "Eagle Pro", href: "./../products/eagle-pro" },
   { name: "Sparrow", href: "#" },
   { name: "FeatherGauge", href: "#" },
   { name: "FeatherWatt", href: "#" },
   { name: "Eagle Vision Analytics", href: "#" },
-]
+];
 
 export default function Navigation() {
   const [showProducts, setShowProducts] = useState(false)
